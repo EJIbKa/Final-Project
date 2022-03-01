@@ -8,7 +8,11 @@ public abstract class Car {
     private WheelSizeEnum wheelSize;
     private CarOptionsEnum[] carOptions;
 
-    public Car(CarMarksEnum mark, Integer year, EngineDisplacementEnum engineSize, CarColorsEnum color, WheelSizeEnum wheelSize) {
+    public Car(CarMarksEnum mark,
+               Integer year,
+               EngineDisplacementEnum engineSize,
+               CarColorsEnum color,
+               WheelSizeEnum wheelSize) {
         this.mark = mark;
         this.year = year;
         this.engineSize = engineSize;
@@ -17,7 +21,11 @@ public abstract class Car {
         this.carOptions = new CarOptionsEnum[0];
     }
 
-    public Car(CarMarksEnum mark, Integer year, EngineDisplacementEnum engineSize, CarColorsEnum color, WheelSizeEnum wheelSize,
+    public Car(CarMarksEnum mark,
+               Integer year,
+               EngineDisplacementEnum engineSize,
+               CarColorsEnum color,
+               WheelSizeEnum wheelSize,
                CarOptionsEnum... carOptions) {
         this.mark = mark;
         this.year = year;
