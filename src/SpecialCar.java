@@ -34,7 +34,7 @@ public class SpecialCar extends Car {
                 super.getYear() + " year, engine size " +
                 super.getEngineSize() + ", color " +
                 super.getColor() + ", wheel size " +
-                super.getWheelSize() + ", person capacity " +
+                super.getWheelSize() + ", type of car " +
                 specialCarType +
                 (super.getCarOptions().length == 0 ? '.' : ", options: " + Arrays.toString(super.getCarOptions()) + '.');
     }
