@@ -3,7 +3,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 public class TruckCarFactory extends CarFactory {
-    protected final CarryingCapacityEnum[] carryingCapacity;
+    private final CarryingCapacityEnum[] carryingCapacity;
 
     public TruckCarFactory(CarMarksEnum[] marks,
                            EngineDisplacementEnum[] engineSize,
@@ -27,13 +27,13 @@ public class TruckCarFactory extends CarFactory {
         TruckCar truckCar;
         for (int i = 0; i < carCounter; i++) {
             truckCar = new TruckCar(
-                    this.marks[random.nextInt(this.marks.length)],
+                    this.getMarks()[random.nextInt(this.getMarks().length)],
                     Calendar.getInstance().get(Calendar.YEAR),
-                    this.engineSize[random.nextInt(this.engineSize.length)],
-                    this.carColors[random.nextInt(this.engineSize.length)],
-                    this.wheelSize[random.nextInt(this.engineSize.length)],
+                    this.getEngineSize()[random.nextInt(this.getEngineSize().length)],
+                    this.getCarColors()[random.nextInt(this.getCarColors().length)],
+                    this.getWheelSize()[random.nextInt(this.getWheelSize().length)],
                     this.carryingCapacity[random.nextInt(this.carryingCapacity.length)]);
-            this.factoryStorage.addCarToStorage(truckCar);
+            this.getFactoryStorage().addCarToStorage(truckCar);
         }
     }
 
@@ -44,7 +44,7 @@ public class TruckCarFactory extends CarFactory {
     }
 
     private void createCar(String[] carArgs) {
-            this.factoryStorage.addCarToStorage(new TruckCar(CarMarksEnum.valueOf(carArgs[0]),
+            this.getFactoryStorage().addCarToStorage(new TruckCar(CarMarksEnum.valueOf(carArgs[0]),
                     Calendar.getInstance().get(Calendar.YEAR),
                     EngineDisplacementEnum.valueOf(carArgs[1]),
                     CarColorsEnum.valueOf(carArgs[2]),
@@ -53,7 +53,7 @@ public class TruckCarFactory extends CarFactory {
     }
 
     @Override
-    protected boolean checkCarArgsToCreateOnFactory(String[] carArgs) {
+    boolean checkCarArgsToCreateOnFactory(String[] carArgs) {
         boolean trigger = super.checkCarArgsToCreateOnFactory(carArgs);
         if (!trigger) {
             return trigger;
@@ -110,9 +110,9 @@ public class TruckCarFactory extends CarFactory {
             System.out.println("Создание новой машины...");
             createCar(carArgs);
             if (carArgs.length > 5) {
-                addCarOptionsForRequest(factoryStorage.getStorage()[factoryStorage.getStorage().length - 1], carOptions);
+                addCarOptionsForRequest(getFactoryStorage().getStorage()[getFactoryStorage().getStorage().length - 1], carOptions);
             }
-            return factoryStorage.moveCarFromStorageByIndex(factoryStorage.getStorage().length - 1);
+            return getFactoryStorage().moveCarFromStorageByIndex(getFactoryStorage().getStorage().length - 1);
         } else {
             System.out.println("Данный завод не может создать такую машину.");
         }
