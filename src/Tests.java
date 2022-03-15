@@ -12,18 +12,19 @@ public class Tests {
 //                5,
 //                PassengerCarBodyEnum.SEDAN);
 //        System.out.println(car1);
-        String[] carArgs = new String[7];
+        String[] carArgs = new String[8];
         carArgs[0] = CarMarksEnum.BMW.name();
         carArgs[1] = EngineDisplacementEnum.MEDIUM_CAPACITY.name();
         carArgs[2] = CarColorsEnum.BLACK.name();
         carArgs[3] = WheelSizeEnum.INCH_18.name();
-        carArgs[4] = SpecialCarTypeEnum.EXCAVATOR.name();
-        carArgs[5] = CarOptionsEnum.BACKUP_CAMERA.name();
-        carArgs[6] = CarOptionsEnum.HEATED_SEATS.name();
+        carArgs[4] = String.valueOf(5);
+        carArgs[5] = PassengerCarBodyEnum.SEDAN.name();
+        carArgs[6] = CarOptionsEnum.BACKUP_CAMERA.name();
+        carArgs[7] = CarOptionsEnum.HEATED_SEATS.name();
         CarColorChangeService carColorChangeService = new CarColorChangeService();
         WheelSizeChangeService wheelSizeChangeService = new WheelSizeChangeService();
         CarOptionsChangeService carOptionsChangeService = new CarOptionsChangeService();
-        var factory = new SpecialCarFactory(
+        var factory = new DefaultPassengerCarFactory(
                 new CarMarksEnum[]{CarMarksEnum.BMW, CarMarksEnum.AUDI},
                 new EngineDisplacementEnum[]{EngineDisplacementEnum.MEDIUM_CAPACITY},
                 new CarColorsEnum[]{CarColorsEnum.BLACK, CarColorsEnum.BLUE},
@@ -31,7 +32,8 @@ public class Tests {
                 carColorChangeService,
                 wheelSizeChangeService,
                 carOptionsChangeService,
-                new SpecialCarTypeEnum[]{SpecialCarTypeEnum.EXCAVATOR});
+                new Integer[]{5 ,6},
+                new PassengerCarBodyEnum[]{PassengerCarBodyEnum.SEDAN, PassengerCarBodyEnum.HATCHBACK});
         System.out.println(factory.dealershipRequest(carArgs));
 
     }
