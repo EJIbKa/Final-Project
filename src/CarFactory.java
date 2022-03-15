@@ -1,14 +1,34 @@
 import java.util.Arrays;
 
 public abstract class CarFactory {
-    protected final CarMarksEnum[] marks;
-    protected final EngineDisplacementEnum[] engineSize;
-    protected final CarColorsEnum[] carColors;
-    protected final WheelSizeEnum[] wheelSize;
-    protected final CarStorage factoryStorage;
-    protected final CarColorChangeService carColorChangeService;
-    protected final WheelSizeChangeService wheelSizeChangeService;
-    protected final CarOptionsChangeService carOptionsChangeService;
+    private final CarMarksEnum[] marks;
+    private final EngineDisplacementEnum[] engineSize;
+    private final CarColorsEnum[] carColors;
+    private final WheelSizeEnum[] wheelSize;
+    private final CarStorage factoryStorage;
+    private final CarColorChangeService carColorChangeService;
+    private final WheelSizeChangeService wheelSizeChangeService;
+    private final CarOptionsChangeService carOptionsChangeService;
+
+    public CarStorage getFactoryStorage() {
+        return factoryStorage;
+    }
+
+    public CarMarksEnum[] getMarks() {
+        return marks;
+    }
+
+    public EngineDisplacementEnum[] getEngineSize() {
+        return engineSize;
+    }
+
+    public CarColorsEnum[] getCarColors() {
+        return carColors;
+    }
+
+    public WheelSizeEnum[] getWheelSize() {
+        return wheelSize;
+    }
 
     public CarFactory(CarMarksEnum[] marks,
                       EngineDisplacementEnum[] engineSize,
@@ -42,7 +62,7 @@ public abstract class CarFactory {
     }
 
     //проверка можно ли создать машину с переданными параметрами на заводе
-    protected boolean checkCarArgsToCreateOnFactory(String[] carArgs) {
+    boolean checkCarArgsToCreateOnFactory(String[] carArgs) {
         boolean trigger = false;
         for (CarMarksEnum present : marks) {
             if (present.equals(CarMarksEnum.valueOf(carArgs[0]))) {
@@ -83,7 +103,7 @@ public abstract class CarFactory {
         return trigger;
     }
 
-    protected Car findCarInStorage(String[] carArgs) {
+    Car findCarInStorage(String[] carArgs) {
         int tempIndex = -1;
         tempIndex = factoryStorage.searchCarInTheStorage(carArgs);
         if (tempIndex >= 0) {
@@ -92,7 +112,7 @@ public abstract class CarFactory {
         return null;
     }
 
-    protected void changeCarForRequest(Car car, CarColorsEnum color, WheelSizeEnum wheelSize) {
+    void changeCarForRequest(Car car, CarColorsEnum color, WheelSizeEnum wheelSize) {
         if (!car.getColor().equals(color)) {
             carColorChangeService.changeCarColor(car, color);
         }
@@ -101,7 +121,7 @@ public abstract class CarFactory {
         }
     }
 
-    protected void addCarOptionsForRequest(Car car, CarOptionsEnum[] carOptions) {
+    void addCarOptionsForRequest(Car car, CarOptionsEnum[] carOptions) {
         for (int i = 0; i < carOptions.length; i++) {
             carOptionsChangeService.addCarOption(car, carOptions[i]);
         }
