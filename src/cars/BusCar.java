@@ -44,14 +44,12 @@ private final BusAppointmentEnum busAppointment;
 
     @Override
     public String toString() {
-        return super.getMark() + ", " +
-                super.getYear() + " year, engine size " +
-                super.getEngineSize() + ", color " +
-                super.getColor() + ", wheel size " +
-                super.getWheelSize() + ", person capacity " +
-                super.getPersonCapacity() + ", overall dimension " +
-                overallDimensions + ", bus appointment " +
-                busAppointment +
-                (super.getCarOptions().length == 0 ? '.' : ", options: " + Arrays.toString(super.getCarOptions()) + '.');
+        return super.getMark() + ", " + super.getYear() + " year, engine size " + super.getEngineSize()
+                + ", color " + super.getColor() + ", wheel size " + super.getWheelSize()
+                + ", person capacity " + super.getPersonCapacity()
+                + ", overall dimension " + overallDimensions
+                + ", bus appointment " + busAppointment
+                + (super.getCarOptions().length == 0
+                ? '.' : ", options: " + Arrays.toString(super.getCarOptions()) + '.');
     }
 }

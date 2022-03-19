@@ -35,13 +35,10 @@ public class DefaultPassengerCar extends PassengerCar{
 
     @Override
     public String toString() {
-        return super.getMark() + ", " +
-                super.getYear() + " year, engine size " +
-                super.getEngineSize() + ", color " +
-                super.getColor() + ", wheel size " +
-                super.getWheelSize() + ", person capacity " +
-                super.getPersonCapacity() + ", car body " +
-                passengerCarBody +
-                (super.getCarOptions().length == 0 ? '.' : ", options: " + Arrays.toString(super.getCarOptions()) + '.');
+        return super.getMark() + ", " + super.getYear() + " year, engine size " + super.getEngineSize()
+                + ", color " + super.getColor() + ", wheel size " + super.getWheelSize()
+                + ", person capacity " + super.getPersonCapacity() + ", car body " + passengerCarBody
+                + (super.getCarOptions().length == 0
+                ? '.' : ", options: " + Arrays.toString(super.getCarOptions()) + '.');
     }
 }

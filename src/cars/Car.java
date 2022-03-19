@@ -74,14 +74,4 @@ public abstract class Car {
         return carOptions;
     }
 
-    public void printCarInfo() {
-        System.out.println(this);
-    }
-
-    @Override
-    public String toString() {
-        return mark + ", " + year + " year, engine size " + engineSize +
-                ", color " + color + ", wheel size " + wheelSize +
-                (carOptions.length == 0 ? '.' : ", options: " + Arrays.toString(carOptions) + '.');
-    }
 }
