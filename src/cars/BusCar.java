@@ -3,7 +3,7 @@ package cars;
 import java.time.Year;
 import java.util.Arrays;
 
-public class BusCar extends PassengerCar {
+public class BusCar extends Car {
 private final OverallDimensionsEnum overallDimensions;
 private final BusAppointmentEnum busAppointment;
 
@@ -12,10 +12,9 @@ private final BusAppointmentEnum busAppointment;
                   EngineDisplacementEnum engineSize,
                   CarColorsEnum color,
                   WheelSizeEnum wheelSize,
-                  Integer personCapacity,
                   OverallDimensionsEnum overallDimensions,
                   BusAppointmentEnum busAppointment) {
-        super(mark, year, engineSize, color, wheelSize, personCapacity);
+        super(mark, year, engineSize, color, wheelSize);
         this.overallDimensions = overallDimensions;
         this.busAppointment = busAppointment;
     }
@@ -25,11 +24,10 @@ private final BusAppointmentEnum busAppointment;
                   EngineDisplacementEnum engineSize,
                   CarColorsEnum color,
                   WheelSizeEnum wheelSize,
-                  Integer personCapacity,
                   OverallDimensionsEnum overallDimensions,
                   BusAppointmentEnum busAppointment,
                   CarOptionsEnum... carOptions) {
-        super(mark, year, engineSize, color, wheelSize, personCapacity, carOptions);
+        super(mark, year, engineSize, color, wheelSize, carOptions);
         this.overallDimensions = overallDimensions;
         this.busAppointment = busAppointment;
     }
@@ -46,7 +44,6 @@ private final BusAppointmentEnum busAppointment;
     public String toString() {
         return super.getMark() + ", " + super.getYear() + " year, engine size " + super.getEngineSize()
                 + ", color " + super.getColor() + ", wheel size " + super.getWheelSize()
-                + ", person capacity " + super.getPersonCapacity()
                 + ", overall dimension " + overallDimensions
                 + ", bus appointment " + busAppointment
                 + (super.getCarOptions().length == 0

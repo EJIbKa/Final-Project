@@ -1,18 +1,19 @@
 package cars;
 
 import java.time.Year;
+import java.util.Arrays;
 
-public abstract class PassengerCar extends Car {
-    private Integer personCapacity;
+public class PassengerCar extends Car {
+    private final PassengerCarBodyEnum passengerCarBody;
 
     public PassengerCar(CarMarksEnum mark,
                         Year year,
                         EngineDisplacementEnum engineSize,
                         CarColorsEnum color,
                         WheelSizeEnum wheelSize,
-                        Integer personCapacity) {
+                        PassengerCarBodyEnum passengerCarBody) {
         super(mark, year, engineSize, color, wheelSize);
-        this.personCapacity = personCapacity;
+        this.passengerCarBody = passengerCarBody;
     }
 
     public PassengerCar(CarMarksEnum mark,
@@ -20,18 +21,22 @@ public abstract class PassengerCar extends Car {
                         EngineDisplacementEnum engineSize,
                         CarColorsEnum color,
                         WheelSizeEnum wheelSize,
-                        Integer personCapacity,
+                        PassengerCarBodyEnum passengerCarBody,
                         CarOptionsEnum... carOptions) {
         super(mark, year, engineSize, color, wheelSize, carOptions);
-        this.personCapacity = personCapacity;
+        this.passengerCarBody = passengerCarBody;
     }
 
-    public Integer getPersonCapacity() {
-        return personCapacity;
+    public PassengerCarBodyEnum getPassengerCarBody() {
+        return passengerCarBody;
     }
 
-    public void setPersonCapacity(Integer personCapacity) {
-        this.personCapacity = personCapacity;
+    @Override
+    public String toString() {
+        return super.getMark() + ", " + super.getYear() + " year, engine size " + super.getEngineSize()
+                + ", color " + super.getColor() + ", wheel size " + super.getWheelSize()
+                + ", car body " + passengerCarBody
+                + (super.getCarOptions().length == 0
+                ? '.' : ", options: " + Arrays.toString(super.getCarOptions()) + '.');
     }
-
 }

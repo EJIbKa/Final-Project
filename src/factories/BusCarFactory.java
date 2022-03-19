@@ -7,11 +7,9 @@ import services.WheelSizeChangeService;
 
 import java.time.Year;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Random;
 
 public class BusCarFactory extends CarFactory {
-    private final Integer[] personCapacity;
     private final OverallDimensionsEnum[] overallDimensions;
     private final BusAppointmentEnum[] busAppointment;
 
@@ -22,7 +20,6 @@ public class BusCarFactory extends CarFactory {
                          CarColorChangeService carColorChangeService,
                          WheelSizeChangeService wheelSizeChangeService,
                          CarOptionsChangeService carOptionsChangeService,
-                         Integer[] personCapacity,
                          OverallDimensionsEnum[] overallDimensions,
                          BusAppointmentEnum[] busAppointment) {
         super(marks,
@@ -32,7 +29,6 @@ public class BusCarFactory extends CarFactory {
                 carColorChangeService,
                 wheelSizeChangeService,
                 carOptionsChangeService);
-        this.personCapacity = personCapacity;
         this.overallDimensions = overallDimensions;
         this.busAppointment = busAppointment;
         //заполняем склад завода при запуске некоторыми машинами
@@ -46,7 +42,6 @@ public class BusCarFactory extends CarFactory {
                     this.getEngineSize()[random.nextInt(this.getEngineSize().length)],
                     this.getCarColors()[random.nextInt(this.getCarColors().length)],
                     this.getWheelSize()[random.nextInt(this.getWheelSize().length)],
-                    this.personCapacity[random.nextInt(this.personCapacity.length)],
                     this.overallDimensions[random.nextInt(this.overallDimensions.length)],
                     this.busAppointment[random.nextInt(this.busAppointment.length)]);
             this.getFactoryStorage().addCarToStorage(busCar);
@@ -56,7 +51,6 @@ public class BusCarFactory extends CarFactory {
     @Override
     public void printFactoryOpportunity() {
         super.printFactoryOpportunity();
-        System.out.println("Вместимость человек: " + Arrays.toString(personCapacity));
         System.out.println("Габаритные размеры: " + Arrays.toString(overallDimensions));
         System.out.println("Назначение автобуса: " + Arrays.toString(busAppointment));
     }
@@ -67,7 +61,6 @@ public class BusCarFactory extends CarFactory {
                 EngineDisplacementEnum.valueOf(carArgs[1]),
                 CarColorsEnum.valueOf(carArgs[2]),
                 WheelSizeEnum.valueOf(carArgs[3]),
-                Integer.parseInt(carArgs[4]),
                 OverallDimensionsEnum.valueOf(carArgs[5]),
                 BusAppointmentEnum.valueOf(carArgs[6])));
     }
@@ -75,16 +68,6 @@ public class BusCarFactory extends CarFactory {
     @Override
     boolean checkCarArgsToCreateOnFactory(String[] carArgs) {
         boolean trigger = super.checkCarArgsToCreateOnFactory(carArgs);
-        if (!trigger) {
-            return trigger;
-        }
-        trigger = false;
-        for (Integer present : this.personCapacity) {
-            if (present.equals(Integer.parseInt(carArgs[4]))) {
-                trigger = true;
-                break;
-            }
-        }
         if (!trigger) {
             return trigger;
         }
@@ -115,8 +98,6 @@ public class BusCarFactory extends CarFactory {
                         ", размер двигателя " + carArgs[1] +
                         ", цвет " + carArgs[2] +
                         ", размер колес " + carArgs[3] +
-                        ", вместимость человек " + carArgs[4] +
-                        ", габаритные размеры " + carArgs[5] +
                         ", назначение автобуса " + carArgs[6] +
                         (carArgs.length == 7 ? "." :
                                 (", список опций: " + Arrays.toString(Arrays.copyOfRange(carArgs, 5, carArgs.length)))));

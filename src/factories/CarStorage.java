@@ -21,7 +21,7 @@ public class CarStorage {
             if (storage[0] instanceof BusCar) {
                 return searchBusCar(carArgs);
             }
-            if (storage[0] instanceof DefaultPassengerCar) {
+            if (storage[0] instanceof PassengerCar) {
                 return searchDefaultPassengerCar(carArgs);
             }
             if (storage[0] instanceof SpecialCar) {
@@ -39,7 +39,7 @@ public class CarStorage {
             if (storage[0] instanceof BusCar) {
                 return searchBusCar(carArgs);
             }
-            if (storage[0] instanceof DefaultPassengerCar) {
+            if (storage[0] instanceof PassengerCar) {
                 return searchDefaultPassengerCar(carArgs);
             }
             if (storage[0] instanceof SpecialCar) {
@@ -73,22 +73,20 @@ public class CarStorage {
     }
 
     private Integer searchDefaultPassengerCar(String[] carArgs) {
-        DefaultPassengerCar car;
+        PassengerCar car;
         for (int i = 0; i < storage.length; i++) {
-            car = (DefaultPassengerCar) storage[i];
+            car = (PassengerCar) storage[i];
             if (carArgs.length >= 6) {
                 if (car.getMark().equals(CarMarksEnum.valueOf(carArgs[0])) &&
                         car.getEngineSize().equals(EngineDisplacementEnum.valueOf(carArgs[1])) &&
                         car.getColor().equals(CarColorsEnum.valueOf(carArgs[2])) &&
                         car.getWheelSize().equals(WheelSizeEnum.valueOf(carArgs[3])) &&
-                        car.getPersonCapacity().equals(Integer.parseInt(carArgs[4])) &&
                         car.getPassengerCarBody().equals(PassengerCarBodyEnum.valueOf(carArgs[5]))) {
                     return i;
                 }
             } else {
                 if (car.getMark().equals(CarMarksEnum.valueOf(carArgs[0])) &&
                         car.getEngineSize().equals(EngineDisplacementEnum.valueOf(carArgs[1])) &&
-                        car.getPersonCapacity().equals(Integer.parseInt(carArgs[2])) &&
                         car.getPassengerCarBody().equals(PassengerCarBodyEnum.valueOf(carArgs[3]))) {
                     return i;
                 }
@@ -106,7 +104,6 @@ public class CarStorage {
                         car.getEngineSize().equals(EngineDisplacementEnum.valueOf(carArgs[1])) &&
                         car.getColor().equals(CarColorsEnum.valueOf(carArgs[2])) &&
                         car.getWheelSize().equals(WheelSizeEnum.valueOf(carArgs[3])) &&
-                        car.getPersonCapacity().equals(Integer.parseInt(carArgs[4])) &&
                         car.getOverallDimensions().equals(OverallDimensionsEnum.valueOf(carArgs[5])) &&
                         car.getBusAppointment().equals(BusAppointmentEnum.valueOf(carArgs[6]))) {
                     return i;
@@ -114,7 +111,6 @@ public class CarStorage {
             } else {
                 if (car.getMark().equals(CarMarksEnum.valueOf(carArgs[0])) &&
                         car.getEngineSize().equals(EngineDisplacementEnum.valueOf(carArgs[1])) &&
-                        car.getPersonCapacity().equals(Integer.parseInt(carArgs[2])) &&
                         car.getOverallDimensions().equals(OverallDimensionsEnum.valueOf(carArgs[3])) &&
                         car.getBusAppointment().equals(BusAppointmentEnum.valueOf(carArgs[4]))) {
                     return i;

@@ -7,11 +7,9 @@ import services.WheelSizeChangeService;
 
 import java.time.Year;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Random;
 
 public class DefaultPassengerCarFactory extends CarFactory {
-    private final Integer[] personCapacity;
     private final PassengerCarBodyEnum[] passengerCarBody;
 
     public DefaultPassengerCarFactory(CarMarksEnum[] marks,
@@ -21,7 +19,6 @@ public class DefaultPassengerCarFactory extends CarFactory {
                                       CarColorChangeService carColorChangeService,
                                       WheelSizeChangeService wheelSizeChangeService,
                                       CarOptionsChangeService carOptionsChangeService,
-                                      Integer[] personCapacity,
                                       PassengerCarBodyEnum[] passengerCarBody) {
         super(marks,
                 engineSize,
@@ -30,55 +27,41 @@ public class DefaultPassengerCarFactory extends CarFactory {
                 carColorChangeService,
                 wheelSizeChangeService,
                 carOptionsChangeService);
-        this.personCapacity = personCapacity;
         this.passengerCarBody = passengerCarBody;
         //заполняем склад завода при запуске некоторыми машинами
         var random = new Random();
         int carCounter = random.nextInt(10);
-        DefaultPassengerCar defaultPassengerCar;
+        PassengerCar passengerCar;
         for (int i = 0; i < carCounter; i++) {
-            defaultPassengerCar = new DefaultPassengerCar(
+            passengerCar = new PassengerCar(
                     this.getMarks()[random.nextInt(this.getMarks().length)],
                     Year.now(),
                     this.getEngineSize()[random.nextInt(this.getEngineSize().length)],
                     this.getCarColors()[random.nextInt(this.getCarColors().length)],
                     this.getWheelSize()[random.nextInt(this.getWheelSize().length)],
-                    this.personCapacity[random.nextInt(this.personCapacity.length)],
                     this.passengerCarBody[random.nextInt(this.passengerCarBody.length)]);
-            this.getFactoryStorage().addCarToStorage(defaultPassengerCar);
+            this.getFactoryStorage().addCarToStorage(passengerCar);
         }
     }
 
     @Override
     public void printFactoryOpportunity() {
         super.printFactoryOpportunity();
-        System.out.println("Вместимость человек: " + Arrays.toString(personCapacity));
         System.out.println("Тип кузова: " + Arrays.toString(passengerCarBody));
     }
 
     private void createCar(String[] carArgs) {
-        this.getFactoryStorage().addCarToStorage(new DefaultPassengerCar(CarMarksEnum.valueOf(carArgs[0]),
+        this.getFactoryStorage().addCarToStorage(new PassengerCar(CarMarksEnum.valueOf(carArgs[0]),
                 Year.now(),
                 EngineDisplacementEnum.valueOf(carArgs[1]),
                 CarColorsEnum.valueOf(carArgs[2]),
                 WheelSizeEnum.valueOf(carArgs[3]),
-                Integer.parseInt(carArgs[4]),
                 PassengerCarBodyEnum.valueOf(carArgs[5])));
     }
 
     @Override
     boolean checkCarArgsToCreateOnFactory(String[] carArgs) {
         boolean trigger = super.checkCarArgsToCreateOnFactory(carArgs);
-        if (!trigger) {
-            return trigger;
-        }
-        trigger = false;
-        for (Integer present : this.personCapacity) {
-            if (present.equals(Integer.parseInt(carArgs[4]))) {
-                trigger = true;
-                break;
-            }
-        }
         if (!trigger) {
             return trigger;
         }
@@ -99,10 +82,9 @@ public class DefaultPassengerCarFactory extends CarFactory {
                         ", размер двигателя " + carArgs[1] +
                         ", цвет " + carArgs[2] +
                         ", размер колес " + carArgs[3] +
-                        ", вместимость человек " + carArgs[4] +
                         ", тип кузова " + carArgs[5] +
-                        (carArgs.length == 6 ? "." :
-                                (", список опций: " + Arrays.toString(Arrays.copyOfRange(carArgs, 6, carArgs.length)))));
+                        (carArgs.length == 6 ? "." : (", список опций: "
+                                + Arrays.toString(Arrays.copyOfRange(carArgs, 6, carArgs.length)))));
         if (checkCarArgsToCreateOnFactory(carArgs)) {
             CarOptionsEnum[] carOptions = null;
             if (carArgs.length > 6) {
