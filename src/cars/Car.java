@@ -1,17 +1,18 @@
 package cars;
 
+import java.time.Year;
 import java.util.Arrays;
 
 public abstract class Car {
     private final CarMarksEnum mark;
-    private final Integer year;
+    private final Year year;
     private final EngineDisplacementEnum engineSize;
     private CarColorsEnum color;
     private WheelSizeEnum wheelSize;
     private CarOptionsEnum[] carOptions;
 
     public Car(CarMarksEnum mark,
-               Integer year,
+               Year year,
                EngineDisplacementEnum engineSize,
                CarColorsEnum color,
                WheelSizeEnum wheelSize) {
@@ -24,7 +25,7 @@ public abstract class Car {
     }
 
     public Car(CarMarksEnum mark,
-               Integer year,
+               Year year,
                EngineDisplacementEnum engineSize,
                CarColorsEnum color,
                WheelSizeEnum wheelSize,
@@ -53,7 +54,7 @@ public abstract class Car {
         return mark;
     }
 
-    public Integer getYear() {
+    public Year getYear() {
         return year;
     }
 

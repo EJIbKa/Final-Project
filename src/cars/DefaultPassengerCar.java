@@ -1,12 +1,13 @@
 package cars;
 
+import java.time.Year;
 import java.util.Arrays;
 
 public class DefaultPassengerCar extends PassengerCar{
     private final PassengerCarBodyEnum passengerCarBody;
 
     public DefaultPassengerCar(CarMarksEnum mark,
-                               Integer year,
+                               Year year,
                                EngineDisplacementEnum engineSize,
                                CarColorsEnum color,
                                WheelSizeEnum wheelSize,
@@ -17,7 +18,7 @@ public class DefaultPassengerCar extends PassengerCar{
     }
 
     public DefaultPassengerCar(CarMarksEnum mark,
-                               Integer year,
+                               Year year,
                                EngineDisplacementEnum engineSize,
                                CarColorsEnum color,
                                WheelSizeEnum wheelSize,

@@ -1,5 +1,6 @@
 package cars;
 
+import java.time.Year;
 import java.util.Arrays;
 
 public class BusCar extends PassengerCar {
@@ -7,7 +8,7 @@ private final OverallDimensionsEnum overallDimensions;
 private final BusAppointmentEnum busAppointment;
 
     public BusCar(CarMarksEnum mark,
-                  Integer year,
+                  Year year,
                   EngineDisplacementEnum engineSize,
                   CarColorsEnum color,
                   WheelSizeEnum wheelSize,
@@ -20,7 +21,7 @@ private final BusAppointmentEnum busAppointment;
     }
 
     public BusCar(CarMarksEnum mark,
-                  Integer year,
+                  Year year,
                   EngineDisplacementEnum engineSize,
                   CarColorsEnum color,
                   WheelSizeEnum wheelSize,

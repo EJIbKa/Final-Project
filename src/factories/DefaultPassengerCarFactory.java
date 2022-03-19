@@ -1,7 +1,11 @@
 package factories;
 
 import cars.*;
+import services.CarColorChangeService;
+import services.CarOptionsChangeService;
+import services.WheelSizeChangeService;
 
+import java.time.Year;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
@@ -35,7 +39,7 @@ public class DefaultPassengerCarFactory extends CarFactory {
         for (int i = 0; i < carCounter; i++) {
             defaultPassengerCar = new DefaultPassengerCar(
                     this.getMarks()[random.nextInt(this.getMarks().length)],
-                    Calendar.getInstance().get(Calendar.YEAR),
+                    Year.now(),
                     this.getEngineSize()[random.nextInt(this.getEngineSize().length)],
                     this.getCarColors()[random.nextInt(this.getCarColors().length)],
                     this.getWheelSize()[random.nextInt(this.getWheelSize().length)],
@@ -54,7 +58,7 @@ public class DefaultPassengerCarFactory extends CarFactory {
 
     private void createCar(String[] carArgs) {
         this.getFactoryStorage().addCarToStorage(new DefaultPassengerCar(CarMarksEnum.valueOf(carArgs[0]),
-                Calendar.getInstance().get(Calendar.YEAR),
+                Year.now(),
                 EngineDisplacementEnum.valueOf(carArgs[1]),
                 CarColorsEnum.valueOf(carArgs[2]),
                 WheelSizeEnum.valueOf(carArgs[3]),
@@ -111,12 +115,11 @@ public class DefaultPassengerCarFactory extends CarFactory {
             if (car != null) {
                 if (carArgs.length == 6) {
                     System.out.println("Найдена машина на складе завода, перемещение...");
-                    return car;
                 } else {
                     System.out.println("Найдена машина на складе завода, добавляем опции и перемещаем...");
                     addCarOptionsForRequest(car, carOptions);
-                    return car;
                 }
+                return car;
             }
             String[] tempArgs = {carArgs[0], carArgs[1], carArgs[4], carArgs[5]};
             car = findCarInStorage(tempArgs);

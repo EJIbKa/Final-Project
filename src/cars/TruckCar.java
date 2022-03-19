@@ -1,12 +1,13 @@
 package cars;
 
+import java.time.Year;
 import java.util.Arrays;
 
 public class TruckCar extends Car {
     private final CarryingCapacityEnum carryingCapacity;
 
     public TruckCar(CarMarksEnum mark,
-                    Integer year,
+                    Year year,
                     EngineDisplacementEnum engineSize,
                     CarColorsEnum color,
                     WheelSizeEnum wheelSize,
@@ -16,7 +17,7 @@ public class TruckCar extends Car {
     }
 
     public TruckCar(CarMarksEnum mark,
-                    Integer year,
+                    Year year,
                     EngineDisplacementEnum engineSize,
                     CarColorsEnum color,
                     WheelSizeEnum wheelSize,

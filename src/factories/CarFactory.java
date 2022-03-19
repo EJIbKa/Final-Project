@@ -1,6 +1,9 @@
 package factories;
 
 import cars.*;
+import services.CarColorChangeService;
+import services.CarOptionsChangeService;
+import services.WheelSizeChangeService;
 
 import java.util.Arrays;
 
