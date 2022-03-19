@@ -1,7 +1,6 @@
 package cars;
 
 import java.time.Year;
-import java.util.Arrays;
 
 public abstract class Car {
     private final CarMarksEnum mark;
