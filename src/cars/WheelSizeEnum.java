@@ -1,3 +1,5 @@
+package cars;
+
 public enum WheelSizeEnum {
     INCH_13,
     INCH_14,

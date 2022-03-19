@@ -1,3 +1,5 @@
+package cars;
+
 public enum PassengerCarBodyEnum {
     SEDAN,
     COUPE,

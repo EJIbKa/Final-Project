@@ -1,3 +1,8 @@
+package services;
+
+import cars.Car;
+import cars.WheelSizeEnum;
+
 public class WheelSizeChangeService {
 
     public void changeWheelSize(Car car, WheelSizeEnum wheelSize) {

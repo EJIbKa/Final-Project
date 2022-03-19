@@ -1,3 +1,5 @@
+package cars;
+
 public enum SpecialCarTypeEnum {
     TRUCK_CRANE,
     AMBULANCE,

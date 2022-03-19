@@ -1,3 +1,5 @@
+package cars;
+
 public enum CarOptionsEnum {
     LEATHER_SEATS,
     SUNROOF,

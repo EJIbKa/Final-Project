@@ -1,3 +1,9 @@
+import cars.*;
+import factories.CarFactory;
+import services.CarColorChangeService;
+import services.CarOptionsChangeService;
+import services.WheelSizeChangeService;
+
 public class Dealership {
     private final CarColorChangeService carColorChangeService;
     private final WheelSizeChangeService wheelSizeChangeService;

@@ -1,3 +1,5 @@
+package cars;
+
 import java.util.Arrays;
 
 public class DefaultPassengerCar extends PassengerCar{

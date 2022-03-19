@@ -1,4 +1,6 @@
-public enum OverallDimensionsEnum {
+package cars;
+
+public enum CarryingCapacityEnum {
     ESPECIALLY_SMALL,
     SMALL,
     MEDIUM,

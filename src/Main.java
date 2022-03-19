@@ -1,22 +1,22 @@
 public class Main {
     public static void main(String[] args) {
         //CarService service = new CarService();
-//        CarFactory factory = new CarFactory(
-//                new CarMarksEnum[]{CarMarksEnum.BMW, CarMarksEnum.AUDI, CarMarksEnum.ВАЗ, CarMarksEnum.MERCEDES_BENZ},
-//                new EngineDisplacementEnum[]{EngineDisplacementEnum.MEDIUM_CAPACITY, EngineDisplacementEnum.LARGE_CAPACITY},
-//                new CarColorsEnum[]{CarColorsEnum.BLACK, CarColorsEnum.YELLOW, CarColorsEnum.GREEN},
-//                new WheelSizeEnum[]{WheelSizeEnum.INCH_18, WheelSizeEnum.INCH_19, WheelSizeEnum.INCH_20},
+//        factories.CarFactory factory = new factories.CarFactory(
+//                new cars.CarMarksEnum[]{cars.CarMarksEnum.BMW, cars.CarMarksEnum.AUDI, cars.CarMarksEnum.ВАЗ, cars.CarMarksEnum.MERCEDES_BENZ},
+//                new cars.EngineDisplacementEnum[]{cars.EngineDisplacementEnum.MEDIUM_CAPACITY, cars.EngineDisplacementEnum.LARGE_CAPACITY},
+//                new cars.CarColorsEnum[]{cars.CarColorsEnum.BLACK, cars.CarColorsEnum.YELLOW, cars.CarColorsEnum.GREEN},
+//                new cars.WheelSizeEnum[]{cars.WheelSizeEnum.INCH_18, cars.WheelSizeEnum.INCH_19, cars.WheelSizeEnum.INCH_20},
 //                service);
 //        factory.printFactoryOpportunity();
 //        Dealership dealership = new Dealership(service, factory);
-//        Car clientOneCar = new PassengerCar(CarMarksEnum.BMW, 2020, EngineDisplacementEnum.MEDIUM_CAPACITY,
-//                CarColorsEnum.BLACK, WheelSizeEnum.INCH_20, 5, CarOptionsEnum.LEATHER_SEATS, CarOptionsEnum.CLIMATE_CONTROL);
-//        clientOneCar = dealership.addOptionsInCar(clientOneCar, CarOptionsEnum.BACKUP_CAMERA);
-//        Car clientTwoCar = dealership.clientOrder(CarMarksEnum.MERCEDES_BENZ, EngineDisplacementEnum.MEDIUM_CAPACITY,
-//                CarColorsEnum.YELLOW, WheelSizeEnum.INCH_18, CarOptionsEnum.CLIMATE_CONTROL);
+//        cars.Car clientOneCar = new cars.PassengerCar(cars.CarMarksEnum.BMW, 2020, cars.EngineDisplacementEnum.MEDIUM_CAPACITY,
+//                cars.CarColorsEnum.BLACK, cars.WheelSizeEnum.INCH_20, 5, cars.CarOptionsEnum.LEATHER_SEATS, cars.CarOptionsEnum.CLIMATE_CONTROL);
+//        clientOneCar = dealership.addOptionsInCar(clientOneCar, cars.CarOptionsEnum.BACKUP_CAMERA);
+//        cars.Car clientTwoCar = dealership.clientOrder(cars.CarMarksEnum.MERCEDES_BENZ, cars.EngineDisplacementEnum.MEDIUM_CAPACITY,
+//                cars.CarColorsEnum.YELLOW, cars.WheelSizeEnum.INCH_18, cars.CarOptionsEnum.CLIMATE_CONTROL);
 //        System.out.println(clientTwoCar);
-//        Car clientThreeCar = new PassengerCar(CarMarksEnum.AUDI, 2020, EngineDisplacementEnum.LARGE_CAPACITY,
-//                CarColorsEnum.WHITE, WheelSizeEnum.INCH_18, 5, CarOptionsEnum.LEATHER_SEATS, CarOptionsEnum.CLIMATE_CONTROL);
-//        dealership.changeSomethingInCar(clientThreeCar, CarColorsEnum.RED);
+//        cars.Car clientThreeCar = new cars.PassengerCar(cars.CarMarksEnum.AUDI, 2020, cars.EngineDisplacementEnum.LARGE_CAPACITY,
+//                cars.CarColorsEnum.WHITE, cars.WheelSizeEnum.INCH_18, 5, cars.CarOptionsEnum.LEATHER_SEATS, cars.CarOptionsEnum.CLIMATE_CONTROL);
+//        dealership.changeSomethingInCar(clientThreeCar, cars.CarColorsEnum.RED);
     }
 }

@@ -1,18 +1,22 @@
+package factories;
+
+import cars.*;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
 
-public class TruckCarFactory extends CarFactory {
-    private final CarryingCapacityEnum[] carryingCapacity;
+public class SpecialCarFactory extends CarFactory {
+    private final SpecialCarTypeEnum[] specialCarType;
 
-    public TruckCarFactory(CarMarksEnum[] marks,
-                           EngineDisplacementEnum[] engineSize,
-                           CarColorsEnum[] carColors,
-                           WheelSizeEnum[] wheelSize,
-                           CarColorChangeService carColorChangeService,
-                           WheelSizeChangeService wheelSizeChangeService,
-                           CarOptionsChangeService carOptionsChangeService,
-                           CarryingCapacityEnum[] carryingCapacity) {
+    public SpecialCarFactory(CarMarksEnum[] marks,
+                             EngineDisplacementEnum[] engineSize,
+                             CarColorsEnum[] carColors,
+                             WheelSizeEnum[] wheelSize,
+                             CarColorChangeService carColorChangeService,
+                             WheelSizeChangeService wheelSizeChangeService,
+                             CarOptionsChangeService carOptionsChangeService,
+                             SpecialCarTypeEnum[] specialCarType) {
         super(marks,
                 engineSize,
                 carColors,
@@ -20,36 +24,36 @@ public class TruckCarFactory extends CarFactory {
                 carColorChangeService,
                 wheelSizeChangeService,
                 carOptionsChangeService);
-        this.carryingCapacity = carryingCapacity;
+        this.specialCarType = specialCarType;
         //заполняем склад завода при запуске некоторыми машинами
         var random = new Random();
         int carCounter = random.nextInt(10);
-        TruckCar truckCar;
+        SpecialCar specialCar;
         for (int i = 0; i < carCounter; i++) {
-            truckCar = new TruckCar(
+            specialCar = new SpecialCar(
                     this.getMarks()[random.nextInt(this.getMarks().length)],
                     Calendar.getInstance().get(Calendar.YEAR),
                     this.getEngineSize()[random.nextInt(this.getEngineSize().length)],
                     this.getCarColors()[random.nextInt(this.getCarColors().length)],
                     this.getWheelSize()[random.nextInt(this.getWheelSize().length)],
-                    this.carryingCapacity[random.nextInt(this.carryingCapacity.length)]);
-            this.getFactoryStorage().addCarToStorage(truckCar);
+                    this.specialCarType[random.nextInt(this.specialCarType.length)]);
+            this.getFactoryStorage().addCarToStorage(specialCar);
         }
     }
 
     @Override
     public void printFactoryOpportunity() {
         super.printFactoryOpportunity();
-        System.out.println("Грузоподъемность: " + Arrays.toString(carryingCapacity));
+        System.out.println("Тип: " + Arrays.toString(specialCarType));
     }
 
     private void createCar(String[] carArgs) {
-            this.getFactoryStorage().addCarToStorage(new TruckCar(CarMarksEnum.valueOf(carArgs[0]),
-                    Calendar.getInstance().get(Calendar.YEAR),
-                    EngineDisplacementEnum.valueOf(carArgs[1]),
-                    CarColorsEnum.valueOf(carArgs[2]),
-                    WheelSizeEnum.valueOf(carArgs[3]),
-                    CarryingCapacityEnum.valueOf(carArgs[4])));
+        this.getFactoryStorage().addCarToStorage(new SpecialCar(CarMarksEnum.valueOf(carArgs[0]),
+                Calendar.getInstance().get(Calendar.YEAR),
+                EngineDisplacementEnum.valueOf(carArgs[1]),
+                CarColorsEnum.valueOf(carArgs[2]),
+                WheelSizeEnum.valueOf(carArgs[3]),
+                SpecialCarTypeEnum.valueOf(carArgs[4])));
     }
 
     @Override
@@ -59,8 +63,8 @@ public class TruckCarFactory extends CarFactory {
             return trigger;
         }
         trigger = false;
-        for (CarryingCapacityEnum present : this.carryingCapacity) {
-            if (present.equals(CarryingCapacityEnum.valueOf(carArgs[4]))) {
+        for (SpecialCarTypeEnum present : this.specialCarType) {
+            if (present.equals(SpecialCarTypeEnum.valueOf(carArgs[4]))) {
                 trigger = true;
                 break;
             }
@@ -72,12 +76,12 @@ public class TruckCarFactory extends CarFactory {
     public Car dealershipRequest(String[] carArgs) {
         System.out.println(
                 "Заказ от автосалона: марка " + CarMarksEnum.valueOf(carArgs[0]).name() +
-                ", размер двигателя " + EngineDisplacementEnum.valueOf(carArgs[1]).name() +
-                ", цвет " + CarColorsEnum.valueOf(carArgs[2]).name() +
-                ", размер колес " + WheelSizeEnum.valueOf(carArgs[3]).name() +
-                ", грузоподъемность " + CarryingCapacityEnum.valueOf(carArgs[4]) +
-                (carArgs.length == 5 ? "." :
-                        (", список опций: " + Arrays.toString(Arrays.copyOfRange(carArgs, 5, carArgs.length)))));
+                        ", размер двигателя " + EngineDisplacementEnum.valueOf(carArgs[1]).name() +
+                        ", цвет " + CarColorsEnum.valueOf(carArgs[2]).name() +
+                        ", размер колес " + WheelSizeEnum.valueOf(carArgs[3]).name() +
+                        ", тип " + SpecialCarTypeEnum.valueOf(carArgs[4]) +
+                        (carArgs.length == 5 ? "." :
+                                (", список опций: " + Arrays.toString(Arrays.copyOfRange(carArgs, 5, carArgs.length)))));
         if (checkCarArgsToCreateOnFactory(carArgs)) {
             CarOptionsEnum[] carOptions = null;
             if (carArgs.length > 5) {
@@ -118,5 +122,4 @@ public class TruckCarFactory extends CarFactory {
         }
         return null;
     }
-
 }

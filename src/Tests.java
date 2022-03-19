@@ -1,16 +1,19 @@
-import java.util.Arrays;
-import java.util.Calendar;
+import cars.*;
+import factories.DefaultPassengerCarFactory;
+import services.CarColorChangeService;
+import services.CarOptionsChangeService;
+import services.WheelSizeChangeService;
 
 public class Tests {
     public static void main(String[] args) {
-//        var car1 = new DefaultPassengerCar(
-//                CarMarksEnum.MERCEDES_BENZ,
+//        var car1 = new cars.DefaultPassengerCar(
+//                cars.CarMarksEnum.MERCEDES_BENZ,
 //                2020,
-//                EngineDisplacementEnum.MEDIUM_CAPACITY,
-//                CarColorsEnum.GREEN,
-//                WheelSizeEnum.INCH_20,
+//                cars.EngineDisplacementEnum.MEDIUM_CAPACITY,
+//                cars.CarColorsEnum.GREEN,
+//                cars.WheelSizeEnum.INCH_20,
 //                5,
-//                PassengerCarBodyEnum.SEDAN);
+//                cars.PassengerCarBodyEnum.SEDAN);
 //        System.out.println(car1);
         String[] carArgs = new String[8];
         carArgs[0] = CarMarksEnum.BMW.name();

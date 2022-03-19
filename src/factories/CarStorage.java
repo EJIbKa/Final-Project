@@ -1,3 +1,7 @@
+package factories;
+
+import cars.*;
+
 public class CarStorage {
     private Car[] storage;
 
@@ -27,7 +31,7 @@ public class CarStorage {
         return -1;
     }
 
-    public Integer searchCarInTheStorageTochange(String[] carArgs) {
+    public Integer searchCarInTheStorageToChange(String[] carArgs) {
         if (storage.length > 0) {
             if (storage[0] instanceof TruckCar) {
                 return searchTruckCar(carArgs);

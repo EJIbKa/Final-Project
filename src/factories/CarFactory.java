@@ -1,3 +1,7 @@
+package factories;
+
+import cars.*;
+
 import java.util.Arrays;
 
 public abstract class CarFactory {
@@ -129,15 +133,15 @@ public abstract class CarFactory {
 
     //поиск машины на складе или создание новой машины согласно заказу из автосалона
     public abstract Car dealershipRequest(String[] carArgs); /*{
-        System.out.println("Заказ от автосалона: марка " + CarMarksEnum.valueOf(carArgs[0]).name() +
-                ", размер двигателя " + EngineDisplacementEnum.valueOf(carArgs[1]).name() +
-                ", цвет " + CarColorsEnum.valueOf(carArgs[2]).name() +
-                ", размер колес " + WheelSizeEnum.valueOf(carArgs[3]).name() +
+        System.out.println("Заказ от автосалона: марка " + cars.CarMarksEnum.valueOf(carArgs[0]).name() +
+                ", размер двигателя " + cars.EngineDisplacementEnum.valueOf(carArgs[1]).name() +
+                ", цвет " + cars.CarColorsEnum.valueOf(carArgs[2]).name() +
+                ", размер колес " + cars.WheelSizeEnum.valueOf(carArgs[3]).name() +
                 (carArgs.length == 4 ? "." : (", список опций: " +
                         Arrays.toString(Arrays.copyOfRange(carArgs, 4, carArgs.length)))));
 
         if (checkCarArgsToCreateOnFactory(mark, engineSize, color, wheelSize)) {
-            Car car = findCarInStorage(mark, engineSize, color, wheelSize);
+            cars.Car car = findCarInStorage(mark, engineSize, color, wheelSize);
             if (car != null) {
                 if (carOptions.length == 0) {
                     System.out.println("Найдена машина на складе завода, перемещение...");
