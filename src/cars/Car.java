@@ -1,6 +1,11 @@
 package cars;
 
 import java.time.Year;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class Car {
     private final CarMarksEnum mark;
@@ -8,7 +13,7 @@ public abstract class Car {
     private final EngineDisplacementEnum engineSize;
     private CarColorsEnum color;
     private WheelSizeEnum wheelSize;
-    private CarOptionsEnum[] carOptions;
+    private Set<CarOptionsEnum> carOptions;
 
     public Car(CarMarksEnum mark,
                Year year,
@@ -20,7 +25,7 @@ public abstract class Car {
         this.engineSize = engineSize;
         this.color = color;
         this.wheelSize = wheelSize;
-        this.carOptions = new CarOptionsEnum[0];
+        this.carOptions = new HashSet<>();
     }
 
     public Car(CarMarksEnum mark,
@@ -34,7 +39,7 @@ public abstract class Car {
         this.engineSize = engineSize;
         this.color = color;
         this.wheelSize = wheelSize;
-        this.carOptions = carOptions;
+        this.carOptions = Arrays.stream(carOptions).collect(Collectors.toSet());
     }
 
     public void setColor(CarColorsEnum color) {
@@ -45,7 +50,7 @@ public abstract class Car {
         this.wheelSize = wheelSize;
     }
 
-    public void setCarOptions(CarOptionsEnum[] carOptions) {
+    public void setCarOptions(Set<CarOptionsEnum> carOptions) {
         this.carOptions = carOptions;
     }
 
@@ -69,7 +74,7 @@ public abstract class Car {
         return wheelSize;
     }
 
-    public CarOptionsEnum[] getCarOptions() {
+    public Set<CarOptionsEnum> getCarOptions() {
         return carOptions;
     }
 

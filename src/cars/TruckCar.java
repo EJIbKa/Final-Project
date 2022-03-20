@@ -36,8 +36,8 @@ public class TruckCar extends Car {
         return super.getMark() + ", " + super.getYear() + " year, engine size " + super.getEngineSize()
                 + ", color " + super.getColor() + ", wheel size " + super.getWheelSize()
                 + ", carrying capacity " + carryingCapacity
-                + (super.getCarOptions().length == 0
-                ? '.' : ", options: " + Arrays.toString(super.getCarOptions()) + '.');
+                + (super.getCarOptions().size() == 0
+                ? '.' : ", options: " + Arrays.toString(super.getCarOptions().toArray()) + '.');
     }
 
 }

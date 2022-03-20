@@ -46,7 +46,7 @@ private final BusAppointmentEnum busAppointment;
                 + ", color " + super.getColor() + ", wheel size " + super.getWheelSize()
                 + ", overall dimension " + overallDimensions
                 + ", bus appointment " + busAppointment
-                + (super.getCarOptions().length == 0
-                ? '.' : ", options: " + Arrays.toString(super.getCarOptions()) + '.');
+                + (super.getCarOptions().size() == 0
+                ? '.' : ", options: " + Arrays.toString(super.getCarOptions().toArray()) + '.');
     }
 }

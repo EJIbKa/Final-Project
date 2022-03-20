@@ -36,7 +36,7 @@ public class SpecialCar extends Car {
         return super.getMark() + ", " + super.getYear() + " year, engine size " + super.getEngineSize()
                 + ", color " + super.getColor() + ", wheel size " + super.getWheelSize()
                 + ", type of car " + specialCarType
-                + (super.getCarOptions().length == 0
-                ? '.' : ", options: " + Arrays.toString(super.getCarOptions()) + '.');
+                + (super.getCarOptions().size() == 0
+                ? '.' : ", options: " + Arrays.toString(super.getCarOptions().toArray()) + '.');
     }
 }
