@@ -1,16 +1,16 @@
 package services;
 
 import cars.Car;
-import cars.WheelSizeEnum;
 
-public class WheelSizeChangeService {
+public class WheelSizeChangeService implements Changeable {
 
-    public void changeWheelSize(Car car, WheelSizeEnum wheelSize) {
-        if (car.getWheelSize().equals(wheelSize)) {
+    @Override
+    public void change(Car car, ChangeApplication changeApplication) {
+        if (car.getWheelSize().equals(changeApplication.getWheelSize())) {
             System.out.println("Текущий размер колес совпадает, замена не нужна.");
             return;
         }
-        car.setWheelSize(wheelSize);
-        System.out.println("Колеса на машине заменены. Текущий размер - " + wheelSize);
+        car.setWheelSize(changeApplication.getWheelSize());
+        System.out.println("Колеса на машине заменены. Текущий размер - " + car.getWheelSize());
     }
 }

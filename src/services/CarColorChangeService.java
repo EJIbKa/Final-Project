@@ -1,16 +1,16 @@
 package services;
 
 import cars.Car;
-import cars.CarColorsEnum;
 
-public class CarColorChangeService {
+public class CarColorChangeService implements Changeable {
 
-    public void changeCarColor(Car car, CarColorsEnum carColors) {
-        if (car.getColor().equals(carColors)) {
+    @Override
+    public void change(Car car, ChangeApplication changeApplication) {
+        if (car.getColor().equals(changeApplication.getCarColor())) {
             System.out.println("Текущий цвет и так соответствует, покраска не нужна.");
             return;
         }
-        car.setColor(carColors);
-        System.out.println("Машина перекрашена. Новый цвет - " + carColors.name());
+        car.setColor(changeApplication.getCarColor());
+        System.out.println("Машина перекрашена. Текущий цвет - " + car.getColor());
     }
 }
