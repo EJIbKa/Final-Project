@@ -2,29 +2,32 @@ package factories;
 
 import cars.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CarStorage {
-    private Car[] storage;
+    private final List<Car> storage;
 
     public CarStorage() {
-        this.storage = new Car[0];
+        this.storage = new ArrayList<>();
     }
 
-    public Car[] getStorage() {
+    public List<Car> getStorage() {
         return storage;
     }
 
     public Integer searchCarInTheStorage(String[] carArgs) {
-        if (storage.length > 0) {
-            if (storage[0] instanceof TruckCar) {
+        if (storage.size() > 0) {
+            if (storage.get(0) instanceof TruckCar) {
                 return searchTruckCar(carArgs);
             }
-            if (storage[0] instanceof BusCar) {
+            if (storage.get(0) instanceof BusCar) {
                 return searchBusCar(carArgs);
             }
-            if (storage[0] instanceof PassengerCar) {
+            if (storage.get(0) instanceof PassengerCar) {
                 return searchDefaultPassengerCar(carArgs);
             }
-            if (storage[0] instanceof SpecialCar) {
+            if (storage.get(0) instanceof SpecialCar) {
                 return searchSpecialCar(carArgs);
             }
         }
@@ -32,17 +35,17 @@ public class CarStorage {
     }
 
     public Integer searchCarInTheStorageToChange(String[] carArgs) {
-        if (storage.length > 0) {
-            if (storage[0] instanceof TruckCar) {
+        if (storage.size() > 0) {
+            if (storage.get(0) instanceof TruckCar) {
                 return searchTruckCar(carArgs);
             }
-            if (storage[0] instanceof BusCar) {
+            if (storage.get(0) instanceof BusCar) {
                 return searchBusCar(carArgs);
             }
-            if (storage[0] instanceof PassengerCar) {
+            if (storage.get(0) instanceof PassengerCar) {
                 return searchDefaultPassengerCar(carArgs);
             }
-            if (storage[0] instanceof SpecialCar) {
+            if (storage.get(0) instanceof SpecialCar) {
                 return searchSpecialCar(carArgs);
             }
         }
@@ -51,8 +54,8 @@ public class CarStorage {
 
     private Integer searchSpecialCar(String[] carArgs) {
         SpecialCar car;
-        for (int i = 0; i < storage.length; i++) {
-            car = (SpecialCar) storage[i];
+        for (int i = 0; i < storage.size(); i++) {
+            car = (SpecialCar) storage.get(i);
             if (carArgs.length >= 5) {
                 if (car.getMark().equals(CarMarksEnum.valueOf(carArgs[0])) &&
                         car.getEngineSize().equals(EngineDisplacementEnum.valueOf(carArgs[1])) &&
@@ -74,8 +77,8 @@ public class CarStorage {
 
     private Integer searchDefaultPassengerCar(String[] carArgs) {
         PassengerCar car;
-        for (int i = 0; i < storage.length; i++) {
-            car = (PassengerCar) storage[i];
+        for (int i = 0; i < storage.size(); i++) {
+            car = (PassengerCar) storage.get(i);
             if (carArgs.length >= 6) {
                 if (car.getMark().equals(CarMarksEnum.valueOf(carArgs[0])) &&
                         car.getEngineSize().equals(EngineDisplacementEnum.valueOf(carArgs[1])) &&
@@ -97,8 +100,8 @@ public class CarStorage {
 
     private Integer searchBusCar(String[] carArgs) {
         BusCar car;
-        for (int i = 0; i < storage.length; i++) {
-            car = (BusCar) storage[i];
+        for (int i = 0; i < storage.size(); i++) {
+            car = (BusCar) storage.get(i);
             if (carArgs.length >= 7) {
                 if (car.getMark().equals(CarMarksEnum.valueOf(carArgs[0])) &&
                         car.getEngineSize().equals(EngineDisplacementEnum.valueOf(carArgs[1])) &&
@@ -122,8 +125,8 @@ public class CarStorage {
 
     private Integer searchTruckCar(String[] carArgs) {
         TruckCar car;
-        for (int i = 0; i < storage.length; i++) {
-            car = (TruckCar) storage[i];
+        for (int i = 0; i < storage.size(); i++) {
+            car = (TruckCar) storage.get(i);
             if (carArgs.length >= 5) {
                 if (car.getMark().equals(CarMarksEnum.valueOf(carArgs[0])) &&
                         car.getEngineSize().equals(EngineDisplacementEnum.valueOf(carArgs[1])) &&
@@ -144,20 +147,14 @@ public class CarStorage {
     }
 
     public void addCarToStorage(Car car) {
-        var tempArrayStorage = new Car[storage.length + 1];
-        System.arraycopy(storage, 0, tempArrayStorage, 0, storage.length);
-        tempArrayStorage[tempArrayStorage.length - 1] = car;
-        this.storage = tempArrayStorage;
+        synchronized (storage) {
+            storage.add(car);
+        }
     }
 
     public Car moveCarFromStorageByIndex(Integer index) {
-        var tempArrayStorage = new Car[storage.length - 1];
-        if (index > 0) {
-            System.arraycopy(storage, 0, tempArrayStorage, 0, index);
+        synchronized (storage) {
+            return storage.remove(index.intValue());
         }
-        System.arraycopy(storage, index + 1, tempArrayStorage, index, tempArrayStorage.length - index);
-        var tempCar = storage[index];
-        this.storage = tempArrayStorage;
-        return tempCar;
     }
 }

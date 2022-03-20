@@ -116,9 +116,9 @@ public class DefaultPassengerCarFactory extends CarFactory {
             System.out.println("Создание новой машины...");
             createCar(carArgs);
             if (carArgs.length > 6) {
-                addCarOptionsForRequest(getFactoryStorage().getStorage()[getFactoryStorage().getStorage().length - 1], carOptions);
+                addCarOptionsForRequest(getFactoryStorage().getStorage().get(getFactoryStorage().getStorage().size() - 1), carOptions);
             }
-            return getFactoryStorage().moveCarFromStorageByIndex(getFactoryStorage().getStorage().length - 1);
+            return getFactoryStorage().moveCarFromStorageByIndex(getFactoryStorage().getStorage().size() - 1);
         } else {
             System.out.println("Данный завод не может создать такую машину.");
         }
