@@ -2,7 +2,9 @@ package Dealership;
 
 import cars.*;
 import java.time.Year;
+import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DealershipApplication {
     private final CarTypeEnum carType;
@@ -24,15 +26,15 @@ public class DealershipApplication {
             EngineDisplacementEnum engineSize,
             CarColorsEnum color,
             WheelSizeEnum wheelSize,
-            Set<CarOptionsEnum> carOptions,
-            CarryingCapacityEnum carryingCapacity) {
+            CarryingCapacityEnum carryingCapacity,
+            CarOptionsEnum...carOptions) {
         carType = CarTypeEnum.TRUCK_CAR;
         this.mark = mark;
         this.year = year;
         this.engineSize = engineSize;
         this.color = color;
         this.wheelSize = wheelSize;
-        this.carOptions = carOptions;
+        this.carOptions = Arrays.stream(carOptions).collect(Collectors.toSet());
         this.carryingCapacity = carryingCapacity;
     }
 
@@ -42,15 +44,15 @@ public class DealershipApplication {
             EngineDisplacementEnum engineSize,
             CarColorsEnum color,
             WheelSizeEnum wheelSize,
-            Set<CarOptionsEnum> carOptions,
-            SpecialCarTypeEnum specialCarType) {
+            SpecialCarTypeEnum specialCarType,
+            CarOptionsEnum...carOptions) {
         carType = CarTypeEnum.SPECIAL_CAR;
         this.mark = mark;
         this.year = year;
         this.engineSize = engineSize;
         this.color = color;
         this.wheelSize = wheelSize;
-        this.carOptions = carOptions;
+        this.carOptions = Arrays.stream(carOptions).collect(Collectors.toSet());
         this.specialCarType = specialCarType;
     }
 
@@ -60,15 +62,15 @@ public class DealershipApplication {
             EngineDisplacementEnum engineSize,
             CarColorsEnum color,
             WheelSizeEnum wheelSize,
-            Set<CarOptionsEnum> carOptions,
-            PassengerCarBodyEnum passengerCarBody) {
+            PassengerCarBodyEnum passengerCarBody,
+            CarOptionsEnum...carOptions) {
         carType = CarTypeEnum.PASSENGER_CAR;
         this.mark = mark;
         this.year = year;
         this.engineSize = engineSize;
         this.color = color;
         this.wheelSize = wheelSize;
-        this.carOptions = carOptions;
+        this.carOptions = Arrays.stream(carOptions).collect(Collectors.toSet());
         this.passengerCarBody = passengerCarBody;
     }
 
@@ -78,16 +80,16 @@ public class DealershipApplication {
             EngineDisplacementEnum engineSize,
             CarColorsEnum color,
             WheelSizeEnum wheelSize,
-            Set<CarOptionsEnum> carOptions,
             OverallDimensionsEnum overallDimensions,
-            BusAppointmentEnum busAppointment) {
+            BusAppointmentEnum busAppointment,
+            CarOptionsEnum...carOptions) {
         carType = CarTypeEnum.BUS_CAR;
         this.mark = mark;
         this.year = year;
         this.engineSize = engineSize;
         this.color = color;
         this.wheelSize = wheelSize;
-        this.carOptions = carOptions;
+        this.carOptions = Arrays.stream(carOptions).collect(Collectors.toSet());
         this.overallDimensions = overallDimensions;
         this.busAppointment = busAppointment;
     }
