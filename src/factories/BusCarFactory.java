@@ -1,10 +1,8 @@
 package factories;
 
+import Dealership.DealershipApplication;
 import cars.*;
-import services.CarColorChangeService;
-import services.CarOptionsChangeService;
-import services.WheelSizeChangeService;
-
+import services.Services;
 import java.time.Year;
 import java.util.Arrays;
 import java.util.Random;
@@ -17,18 +15,14 @@ public class BusCarFactory extends CarFactory {
                          EngineDisplacementEnum[] engineSize,
                          CarColorsEnum[] carColors,
                          WheelSizeEnum[] wheelSize,
-                         CarColorChangeService carColorChangeService,
-                         WheelSizeChangeService wheelSizeChangeService,
-                         CarOptionsChangeService carOptionsChangeService,
+                         Services services,
                          OverallDimensionsEnum[] overallDimensions,
                          BusAppointmentEnum[] busAppointment) {
         super(marks,
                 engineSize,
                 carColors,
                 wheelSize,
-                carColorChangeService,
-                wheelSizeChangeService,
-                carOptionsChangeService);
+                services);
         this.overallDimensions = overallDimensions;
         this.busAppointment = busAppointment;
         //заполняем склад завода при запуске некоторыми машинами
@@ -44,7 +38,7 @@ public class BusCarFactory extends CarFactory {
                     this.getWheelSize()[random.nextInt(this.getWheelSize().length)],
                     this.overallDimensions[random.nextInt(this.overallDimensions.length)],
                     this.busAppointment[random.nextInt(this.busAppointment.length)]);
-            this.getFactoryStorage().addCarToStorage(busCar);
+            getFactoryStorage().addCarToStorage(busCar);
         }
     }
 
@@ -55,89 +49,10 @@ public class BusCarFactory extends CarFactory {
         System.out.println("Назначение автобуса: " + Arrays.toString(busAppointment));
     }
 
-    private void createCar(String[] carArgs) {
-        this.getFactoryStorage().addCarToStorage(new BusCar(CarMarksEnum.valueOf(carArgs[0]),
-                Year.now(),
-                EngineDisplacementEnum.valueOf(carArgs[1]),
-                CarColorsEnum.valueOf(carArgs[2]),
-                WheelSizeEnum.valueOf(carArgs[3]),
-                OverallDimensionsEnum.valueOf(carArgs[5]),
-                BusAppointmentEnum.valueOf(carArgs[6])));
-    }
-
     @Override
-    boolean checkCarArgsToCreateOnFactory(String[] carArgs) {
-        boolean trigger = super.checkCarArgsToCreateOnFactory(carArgs);
-        if (!trigger) {
-            return trigger;
-        }
-        trigger = false;
-        for (OverallDimensionsEnum present : this.overallDimensions) {
-            if (present.equals(OverallDimensionsEnum.valueOf(carArgs[5]))) {
-                trigger = true;
-                break;
-            }
-        }
-        if (!trigger) {
-            return trigger;
-        }
-        trigger = false;
-        for (BusAppointmentEnum present : this.busAppointment) {
-            if (present.equals(BusAppointmentEnum.valueOf(carArgs[6]))) {
-                trigger = true;
-                break;
-            }
-        }
-        return trigger;
-    }
-
-    @Override
-    public Car dealershipRequest(String[] carArgs) {
-        System.out.println(
-                "Заказ от автосалона: марка " + carArgs[0] +
-                        ", размер двигателя " + carArgs[1] +
-                        ", цвет " + carArgs[2] +
-                        ", размер колес " + carArgs[3] +
-                        ", назначение автобуса " + carArgs[6] +
-                        (carArgs.length == 7 ? "." :
-                                (", список опций: " + Arrays.toString(Arrays.copyOfRange(carArgs, 5, carArgs.length)))));
-        if (checkCarArgsToCreateOnFactory(carArgs)) {
-            CarOptionsEnum[] carOptions = null;
-            if (carArgs.length > 7) {
-                carOptions = new CarOptionsEnum[carArgs.length - 7];
-                for (int i = 7; i < carArgs.length; i++) {
-                    carOptions[i - 7] = CarOptionsEnum.valueOf(carArgs[i]);
-                }
-            }
-            Car car = findCarInStorage(carArgs);
-            if (car != null) {
-                if (carArgs.length == 7) {
-                    System.out.println("Найдена машина на складе завода, перемещение...");
-                } else {
-                    System.out.println("Найдена машина на складе завода, добавляем опции и перемещаем...");
-                    addCarOptionsForRequest(car, carOptions);
-                }
-                return car;
-            }
-            String[] tempArgs = {carArgs[0], carArgs[1], carArgs[4], carArgs[5], carArgs[6]};
-            car = findCarInStorage(tempArgs);
-            if (car != null) {
-                System.out.println("Найдена машина на складе завода под изменение согласно заказу...");
-                changeCarForRequest(car, CarColorsEnum.valueOf(carArgs[2]), WheelSizeEnum.valueOf(carArgs[3]));
-                if (carArgs.length > 7) {
-                    addCarOptionsForRequest(car, carOptions);
-                }
-                return car;
-            }
-            System.out.println("Создание новой машины...");
-            createCar(carArgs);
-            if (carArgs.length > 7) {
-                addCarOptionsForRequest(getFactoryStorage().getStorage().get(getFactoryStorage().getStorage().size() - 1), carOptions);
-            }
-            return getFactoryStorage().moveCarFromStorageByIndex(getFactoryStorage().getStorage().size() - 1);
-        } else {
-            System.out.println("Данный завод не может создать такую машину.");
-        }
-        return null;
+    protected boolean checkCarArgsToCreateOnFactory(DealershipApplication dealershipApplication) {
+        return super.checkCarArgsToCreateOnFactory(dealershipApplication)
+                && Arrays.stream(overallDimensions).anyMatch(p -> p.equals(dealershipApplication.getOverallDimensions()))
+                && Arrays.stream(busAppointment).anyMatch(p -> p.equals(dealershipApplication.getBusAppointment()));
     }
 }

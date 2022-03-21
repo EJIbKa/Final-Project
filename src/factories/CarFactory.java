@@ -1,10 +1,9 @@
 package factories;
 
+import Dealership.DealershipApplication;
 import cars.*;
-import services.CarColorChangeService;
-import services.CarOptionsChangeService;
-import services.WheelSizeChangeService;
-
+import services.Services;
+import java.time.Year;
 import java.util.Arrays;
 
 public abstract class CarFactory {
@@ -13,9 +12,7 @@ public abstract class CarFactory {
     private final CarColorsEnum[] carColors;
     private final WheelSizeEnum[] wheelSize;
     private final CarStorage factoryStorage;
-    private final CarColorChangeService carColorChangeService;
-    private final WheelSizeChangeService wheelSizeChangeService;
-    private final CarOptionsChangeService carOptionsChangeService;
+    private final Services services;
 
     public CarStorage getFactoryStorage() {
         return factoryStorage;
@@ -41,17 +38,13 @@ public abstract class CarFactory {
                       EngineDisplacementEnum[] engineSize,
                       CarColorsEnum[] carColors,
                       WheelSizeEnum[] wheelSize,
-                      CarColorChangeService carColorChangeService,
-                      WheelSizeChangeService wheelSizeChangeService,
-                      CarOptionsChangeService carOptionsChangeService) {
+                      Services services) {
         this.marks = marks;
         this.engineSize = engineSize;
         this.carColors = carColors;
         this.wheelSize = wheelSize;
         this.factoryStorage = new CarStorage();
-        this.carColorChangeService = carColorChangeService;
-        this.wheelSizeChangeService = wheelSizeChangeService;
-        this.carOptionsChangeService = carOptionsChangeService;
+        this.services = services;
     }
 
     //вывод параметров с которыми завод может создать автомобиль
@@ -65,115 +58,103 @@ public abstract class CarFactory {
 
     //создание новой машины на заводе и помещение на склад
     //машины создаются в базовой комплектации, без опций
-    private void createCar(String[] carArgs) {
+    protected void createCar(DealershipApplication dealershipApplication) {
+        switch (dealershipApplication.getCarType()) {
+            case PASSENGER_CAR -> factoryStorage.addCarToStorage(
+                    new PassengerCar(
+                            dealershipApplication.getMark(),
+                            Year.now(),
+                            dealershipApplication.getEngineSize(),
+                            dealershipApplication.getColor(),
+                            dealershipApplication.getWheelSize(),
+                            dealershipApplication.getPassengerCarBody()
+                    )
+            );
+            case SPECIAL_CAR -> factoryStorage.addCarToStorage(
+                    new SpecialCar(
+                            dealershipApplication.getMark(),
+                            Year.now(),
+                            dealershipApplication.getEngineSize(),
+                            dealershipApplication.getColor(),
+                            dealershipApplication.getWheelSize(),
+                            dealershipApplication.getSpecialCarType()
+                    )
+            );
+            case TRUCK_CAR -> factoryStorage.addCarToStorage(
+                    new TruckCar(
+                            dealershipApplication.getMark(),
+                            Year.now(),
+                            dealershipApplication.getEngineSize(),
+                            dealershipApplication.getColor(),
+                            dealershipApplication.getWheelSize(),
+                            dealershipApplication.getCarryingCapacity()
+                    )
+            );
+            case BUS_CAR -> factoryStorage.addCarToStorage(
+                    new BusCar(
+                            dealershipApplication.getMark(),
+                            Year.now(),
+                            dealershipApplication.getEngineSize(),
+                            dealershipApplication.getColor(),
+                            dealershipApplication.getWheelSize(),
+                            dealershipApplication.getOverallDimensions(),
+                            dealershipApplication.getBusAppointment()
+                    )
+            );
+        }
     }
 
     //проверка можно ли создать машину с переданными параметрами на заводе
-    boolean checkCarArgsToCreateOnFactory(String[] carArgs) {
-        boolean trigger = false;
-        for (CarMarksEnum present : marks) {
-            if (present.equals(CarMarksEnum.valueOf(carArgs[0]))) {
-                trigger = true;
-                break;
-            }
-        }
-        if (!trigger) {
-            return trigger;
-        }
-        trigger = false;
-        for (EngineDisplacementEnum present : this.engineSize) {
-            if (present.equals(EngineDisplacementEnum.valueOf(carArgs[1]))) {
-                trigger = true;
-                break;
-            }
-        }
-        if (!trigger) {
-            return trigger;
-        }
-        trigger = false;
-        for (CarColorsEnum present : this.carColors) {
-            if (present.equals(CarColorsEnum.valueOf(carArgs[2]))) {
-                trigger = true;
-                break;
-            }
-        }
-        if (!trigger) {
-            return trigger;
-        }
-        trigger = false;
-        for (WheelSizeEnum present : this.wheelSize) {
-            if (present.equals(WheelSizeEnum.valueOf(carArgs[3]))) {
-                trigger = true;
-                break;
-            }
-        }
-        return trigger;
+    protected boolean checkCarArgsToCreateOnFactory(DealershipApplication dealershipApplication) {
+        return Arrays.stream(marks).anyMatch(p -> p.equals(dealershipApplication.getMark()))
+                && Arrays.stream(engineSize).anyMatch(p -> p.equals(dealershipApplication.getEngineSize()))
+                && Arrays.stream(carColors).anyMatch(p -> p.equals(dealershipApplication.getColor()))
+                && Arrays.stream(wheelSize).anyMatch(p -> p.equals(dealershipApplication.getWheelSize()));
     }
 
-    Car findCarInStorage(String[] carArgs) {
-        int tempIndex = -1;
-        tempIndex = factoryStorage.searchCarInTheStorage(carArgs);
-        if (tempIndex >= 0) {
-            return factoryStorage.moveCarFromStorageByIndex(tempIndex);
+    protected Car findCarInStorage(DealershipApplication dealershipApplication) {
+        int carIndex = factoryStorage.searchCarInTheStorage(dealershipApplication);
+        if (carIndex >= 0) {
+            return factoryStorage.moveCarFromStorageByIndex(carIndex);
         }
         return null;
     }
 
-    void changeCarForRequest(Car car, CarColorsEnum color, WheelSizeEnum wheelSize) {
-        if (!car.getColor().equals(color)) {
-            carColorChangeService.changeCarColor(car, color);
+    protected void changeCarForRequest(Car car, DealershipApplication dealershipApplication) {
+        if (!car.getColor().equals(dealershipApplication.getColor())) {
+            services.changeCarColor(car, dealershipApplication.getColor());
         }
-        if (!car.getWheelSize().equals(wheelSize)) {
-            wheelSizeChangeService.changeWheelSize(car, wheelSize);
+        if (!car.getWheelSize().equals(dealershipApplication.getWheelSize())) {
+            services.changeWheelSize(car, dealershipApplication.getWheelSize());
         }
     }
 
-    void addCarOptionsForRequest(Car car, CarOptionsEnum[] carOptions) {
-        for (int i = 0; i < carOptions.length; i++) {
-            carOptionsChangeService.addCarOption(car, carOptions[i]);
-        }
+    protected void addCarOptionsForRequest(Car car, DealershipApplication dealershipApplication) {
+        services.addCarOptions(car, dealershipApplication.getCarOptions().toArray(new CarOptionsEnum[0]));
     }
 
     //поиск машины на складе или создание новой машины согласно заказу из автосалона
-    public abstract Car dealershipRequest(String[] carArgs); /*{
-        System.out.println("Заказ от автосалона: марка " + cars.CarMarksEnum.valueOf(carArgs[0]).name() +
-                ", размер двигателя " + cars.EngineDisplacementEnum.valueOf(carArgs[1]).name() +
-                ", цвет " + cars.CarColorsEnum.valueOf(carArgs[2]).name() +
-                ", размер колес " + cars.WheelSizeEnum.valueOf(carArgs[3]).name() +
-                (carArgs.length == 4 ? "." : (", список опций: " +
-                        Arrays.toString(Arrays.copyOfRange(carArgs, 4, carArgs.length)))));
-
-        if (checkCarArgsToCreateOnFactory(mark, engineSize, color, wheelSize)) {
-            cars.Car car = findCarInStorage(mark, engineSize, color, wheelSize);
+    public Car dealershipRequest(DealershipApplication dealershipApplication) {
+        if (checkCarArgsToCreateOnFactory(dealershipApplication)) {
+            Car car = findCarInStorage(dealershipApplication);
             if (car != null) {
-                if (carOptions.length == 0) {
-                    System.out.println("Найдена машина на складе завода, перемещение...");
-                    return car;
-                } else {
-                    System.out.println("Найдена машина на складе завода, добавляем опции и перемещаем...");
-                    addCarOptionsForRequest(car, carOptions);
-                    return car;
-                }
-
-            }
-            car = findCarInStorage(mark, engineSize);
-            if (car != null) {
-                System.out.println("Найдена машина на складе завода под изменение согласно заказу...");
-                changeCarForRequest(car, color, wheelSize);
-                if (carOptions.length > 0) {
-                    addCarOptionsForRequest(car, carOptions);
+                changeCarForRequest(car, dealershipApplication);
+                if (dealershipApplication.getCarOptions().size() != 0) {
+                    System.out.println("Добавляем опции и перемещаем...");
+                    addCarOptionsForRequest(car, dealershipApplication);
                 }
                 return car;
             }
             System.out.println("Создание новой машины...");
-            createCar(new String[]{mark.name(), engineSize.name(), color.name(), wheelSize.name()});
-            if (carOptions.length > 0) {
-                addCarOptionsForRequest(factoryStorage.getStorage()[factoryStorage.getStorage().length - 1], carOptions);
+            createCar(dealershipApplication);
+            if (dealershipApplication.getCarOptions().size() != 0) {
+                addCarOptionsForRequest(factoryStorage.getStorage().get(factoryStorage.getStorage().size() - 1),
+                        dealershipApplication);
             }
-            return factoryStorage.moveCarFromStorageByIndex(factoryStorage.getStorage().length - 1);
+            return factoryStorage.moveCarFromStorageByIndex(factoryStorage.getStorage().size() - 1);
         } else {
             System.out.println("Данный завод не может создать такую машину.");
         }
         return null;
-    }*/
+    }
 }
