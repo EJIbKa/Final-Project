@@ -26,7 +26,9 @@ public class CarStorage {
             indexOfCar = searchSplitter(dealershipApplication, true);
             if (indexOfCar < 0) {
                 indexOfCar = searchSplitter(dealershipApplication, false);
-                System.out.println("Найдена машина на складе завода под изменение согласно заказу...");
+                if (indexOfCar > -1) {
+                    System.out.println("Найдена машина на складе завода под изменение согласно заказу...");
+                }
             } else {
                 System.out.println("Найдена машина на складе завода, перемещение...");
             }
