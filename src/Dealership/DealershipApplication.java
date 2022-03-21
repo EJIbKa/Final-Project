@@ -1,14 +1,17 @@
+package Dealership;
+
 import cars.*;
 import java.time.Year;
+import java.util.Set;
 
 public class DealershipApplication {
-    private CarTypeEnum carType;
-    private CarMarksEnum mark;
-    private Year year;
-    private EngineDisplacementEnum engineSize;
-    private CarColorsEnum color;
-    private WheelSizeEnum wheelSize;
-    private CarOptionsEnum[] carOptions;
+    private final CarTypeEnum carType;
+    private final CarMarksEnum mark;
+    private final Year year;
+    private final EngineDisplacementEnum engineSize;
+    private final CarColorsEnum color;
+    private final WheelSizeEnum wheelSize;
+    private final Set<CarOptionsEnum> carOptions;
     private OverallDimensionsEnum overallDimensions;
     private BusAppointmentEnum busAppointment;
     private PassengerCarBodyEnum passengerCarBody;
@@ -21,7 +24,7 @@ public class DealershipApplication {
             EngineDisplacementEnum engineSize,
             CarColorsEnum color,
             WheelSizeEnum wheelSize,
-            CarOptionsEnum[] carOptions,
+            Set<CarOptionsEnum> carOptions,
             CarryingCapacityEnum carryingCapacity) {
         carType = CarTypeEnum.TRUCK_CAR;
         this.mark = mark;
@@ -39,7 +42,7 @@ public class DealershipApplication {
             EngineDisplacementEnum engineSize,
             CarColorsEnum color,
             WheelSizeEnum wheelSize,
-            CarOptionsEnum[] carOptions,
+            Set<CarOptionsEnum> carOptions,
             SpecialCarTypeEnum specialCarType) {
         carType = CarTypeEnum.SPECIAL_CAR;
         this.mark = mark;
@@ -57,7 +60,7 @@ public class DealershipApplication {
             EngineDisplacementEnum engineSize,
             CarColorsEnum color,
             WheelSizeEnum wheelSize,
-            CarOptionsEnum[] carOptions,
+            Set<CarOptionsEnum> carOptions,
             PassengerCarBodyEnum passengerCarBody) {
         carType = CarTypeEnum.PASSENGER_CAR;
         this.mark = mark;
@@ -75,7 +78,7 @@ public class DealershipApplication {
             EngineDisplacementEnum engineSize,
             CarColorsEnum color,
             WheelSizeEnum wheelSize,
-            CarOptionsEnum[] carOptions,
+            Set<CarOptionsEnum> carOptions,
             OverallDimensionsEnum overallDimensions,
             BusAppointmentEnum busAppointment) {
         carType = CarTypeEnum.BUS_CAR;
@@ -113,7 +116,7 @@ public class DealershipApplication {
         return wheelSize;
     }
 
-    public CarOptionsEnum[] getCarOptions() {
+    public Set<CarOptionsEnum> getCarOptions() {
         return carOptions;
     }
 
