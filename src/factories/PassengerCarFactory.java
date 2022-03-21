@@ -7,15 +7,15 @@ import java.time.Year;
 import java.util.Arrays;
 import java.util.Random;
 
-public class DefaultPassengerCarFactory extends CarFactory {
+public class PassengerCarFactory extends CarFactory {
     private final PassengerCarBodyEnum[] passengerCarBody;
 
-    public DefaultPassengerCarFactory(CarMarksEnum[] marks,
-                                      EngineDisplacementEnum[] engineSize,
-                                      CarColorsEnum[] carColors,
-                                      WheelSizeEnum[] wheelSize,
-                                      Services services,
-                                      PassengerCarBodyEnum[] passengerCarBody) {
+    public PassengerCarFactory(CarMarksEnum[] marks,
+                               EngineDisplacementEnum[] engineSize,
+                               CarColorsEnum[] carColors,
+                               WheelSizeEnum[] wheelSize,
+                               Services services,
+                               PassengerCarBodyEnum[] passengerCarBody) {
         super(marks,
                 engineSize,
                 carColors,
