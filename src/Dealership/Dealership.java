@@ -1,18 +1,17 @@
 package Dealership;
 
 import cars.*;
-import factories.CarFactory;
 import factories.Factories;
 import services.Services;
 
 public class Dealership {
     private final Services services;
-    private final Factories factory;
+    private final Factories factories;
 
     public Dealership(Services services,
-                      Factories factory) {
+                      Factories factories) {
         this.services = services;
-        this.factory = factory;
+        this.factories = factories;
     }
 
     public Car changeSomethingInCar(Car car, CarColorsEnum carColors) {
@@ -46,6 +45,6 @@ public class Dealership {
     }
 
     public Car clientOrder(DealershipApplication dealershipApplication) {
-        return factory.dealershipRequest(dealershipApplication);
+        return factories.dealershipRequest(dealershipApplication);
     }
 }
