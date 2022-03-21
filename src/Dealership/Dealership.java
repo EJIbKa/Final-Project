@@ -2,14 +2,15 @@ package Dealership;
 
 import cars.*;
 import factories.CarFactory;
+import factories.Factories;
 import services.Services;
 
 public class Dealership {
     private final Services services;
-    private final CarFactory factory;
+    private final Factories factory;
 
     public Dealership(Services services,
-                      CarFactory factory) {
+                      Factories factory) {
         this.services = services;
         this.factory = factory;
     }
@@ -37,7 +38,7 @@ public class Dealership {
         return car;
     }
 
-    public Car removeOptionsInCar(Car car, CarOptionsEnum... carOptions) {
+    public Car removeOptionsInCar(Car car, CarOptionsEnum...carOptions) {
         if (carOptions.length > 0) {
             services.removeCarOptions(car, carOptions);
         }
