@@ -43,7 +43,7 @@ public class Main {
         );
         var factories = new Factories(busCarFactory, passengerCarFactory, specialCarFactory, truckCarFactory);
         var dealership = new Dealership(new Services(), factories);
-        DealershipApplication dealershipApplication = new DealershipApplication(
+        var car = dealership.clientOrder(
                 CarMarksEnum.AUDI,
                 Year.now(),
                 EngineDisplacementEnum.LARGE_CAPACITY,
@@ -52,7 +52,6 @@ public class Main {
                 PassengerCarBodyEnum.SEDAN,
                 CarOptionsEnum.NAVIGATION_SYSTEM
         );
-        Car car = dealership.clientOrder(dealershipApplication);
         System.out.println(car);
         System.out.println();
         dealership.changeSomethingInCar(car, CarColorsEnum.WHITE);

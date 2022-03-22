@@ -3,6 +3,7 @@ package Dealership;
 import cars.*;
 import factories.Factories;
 import services.Services;
+import java.time.Year;
 
 public class Dealership {
     private final Services services;
@@ -39,7 +40,52 @@ public class Dealership {
         }
     }
 
-    public Car clientOrder(DealershipApplication dealershipApplication) {
-        return factories.dealershipRequest(dealershipApplication);
+    public Car clientOrder(CarMarksEnum mark,
+                           Year year,
+                           EngineDisplacementEnum engineSize,
+                           CarColorsEnum color,
+                           WheelSizeEnum wheelSize,
+                           CarryingCapacityEnum carryingCapacity,
+                           CarOptionsEnum...carOptions) {
+        return factories.dealershipRequest( new DealershipApplication(
+                mark, year, engineSize, color, wheelSize, carryingCapacity, carOptions
+        ));
+    }
+
+    public Car clientOrder(CarMarksEnum mark,
+                           Year year,
+                           EngineDisplacementEnum engineSize,
+                           CarColorsEnum color,
+                           WheelSizeEnum wheelSize,
+                           SpecialCarTypeEnum specialCarType,
+                           CarOptionsEnum...carOptions) {
+        return factories.dealershipRequest( new DealershipApplication(
+                mark, year, engineSize, color, wheelSize, specialCarType, carOptions
+        ));
+    }
+
+    public Car clientOrder(CarMarksEnum mark,
+                           Year year,
+                           EngineDisplacementEnum engineSize,
+                           CarColorsEnum color,
+                           WheelSizeEnum wheelSize,
+                           PassengerCarBodyEnum passengerCarBody,
+                           CarOptionsEnum...carOptions) {
+        return factories.dealershipRequest( new DealershipApplication(
+                mark, year, engineSize, color, wheelSize, passengerCarBody, carOptions
+        ));
+    }
+
+    public Car clientOrder(CarMarksEnum mark,
+                           Year year,
+                           EngineDisplacementEnum engineSize,
+                           CarColorsEnum color,
+                           WheelSizeEnum wheelSize,
+                           OverallDimensionsEnum overallDimensions,
+                           BusAppointmentEnum busAppointment,
+                           CarOptionsEnum...carOptions) {
+        return factories.dealershipRequest( new DealershipApplication(
+                mark, year, engineSize, color, wheelSize, overallDimensions, busAppointment, carOptions
+        ));
     }
 }
